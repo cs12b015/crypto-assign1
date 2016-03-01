@@ -1,6 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int* get_block(int* str){
+	
+	int* ret = malloc(32*sizeof(int));
+	int i,j;
+	i=0;
+	int c = str[i];
+	for(i=0;i<4;i++){
+		c = str[i];
+		for(j=0;j<8;j++){
+			ret[(i+1)*8-j] = c%2;
+ 			c = c/2;
+		}
+	}
+
+	return ret;
+}
+
 int main(){
 	char ch;
 	FILE *fp;
@@ -13,7 +30,7 @@ int main(){
 
 	
 		int* str;
-		str = (int *) malloc(4);
+		str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
 
@@ -35,6 +52,16 @@ int main(){
          printf("%d ",str[i]);
         printf("\n");
 	}
-
 	//fclose(fp);
+	int i;
+	int * t = get_block(str);
+	
+
+	for(i=0;i<32;i++){
+		printf("%d",t[i]);
+	}
 }
+
+
+
+
