@@ -12,24 +12,29 @@ int main(){
 	}
 
 	
-		char* str;
+		int* str;
+		str = (int *) malloc(4);
 	while( ( ch = fgetc(fp) ) != EOF ){
-		
-		str = (char *) malloc(4);
-
 		str[0]=ch;
 
 		if(( ch = fgetc(fp) ) != EOF)
 		str[1]=ch;
+		else{str[1]=0;}
 
 		if(( ch = fgetc(fp) ) != EOF)
 		str[2]=ch;
+		else{str[2]=0;}
 
 		if(( ch = fgetc(fp) ) != EOF)
 		str[3]=ch;
+		else{str[3]=0;}
 
-		printf("%s\n",str);
-
+		//printf("%s\n",str);
+		int i;
+		for( i=0;i<4;i++)
+         printf("%d ",str[i]);
+        printf("\n");
 	}
-	fclose(fp);
+
+	//fclose(fp);
 }
