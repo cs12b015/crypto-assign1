@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <malloc.h>
 
+int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24,22,2,13,9,11,12,3,10};
+
+int sbox1[16]= {5,8,3,6,14,2,13,10,12,7,15,0,4,11,19,1};
 
 
-int* permutate(int* original, int* permseq){
-	int* duplicate;
-	duplicate = (int *) malloc(32);
+int* permutate(int* original, int permseq[]){
+	int* duplicate = malloc(32*sizeof(int));
 	int i;
 	for(i=0;i<32;i++){
 		duplicate[i]=original[permseq[i]];
@@ -14,9 +16,8 @@ int* permutate(int* original, int* permseq){
 	return duplicate;
 } 
 
-int* depermutate(int* duplicate,int* permseq){
-	int* original;
-	original=(int *) malloc (32);
+int* depermutate(int* duplicate,int permseq[]){
+	int* original= malloc(32*sizeof(int));
 	int i;
 	for(i=0;i<32;i++){
 		original[permseq[i]]=duplicate[i];
@@ -40,13 +41,12 @@ int* get_block(int* str){
  			c = c/2;
 		}
 	}
-
 	return ret;
 }
 
+
 int * get_numstr(int* bin){
 	int* ret = malloc(4* sizeof(int));
-
 	int i,j,k,temp;
 
 	for(i=0;i<4;i++){
@@ -62,10 +62,40 @@ int * get_numstr(int* bin){
 }
 
 
-int main(){
+
+int* subencrypt(int* perm,int* key ){
+	int* left = malloc(16*sizeof(int));
+	int* right = malloc(16*sizeof(int));
+	int* finalsub = malloc(32*sizeof(int));
+
+	int* shufflekey = permutate(t,pseq1);
+	int* tempkey = malloc(16*sizeof(int));
+
+	int i;
+	for(i=0;i<16;i++){
+
+		left[i]=perm[i];
+		tempkey[i]= shufflekey[i];
+	}
+	for(i=0;i<16;i++){
+		right[i]=perm[i+16];
+		finalsub[i]= perm[i+16];
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+void myencrypt(int* key){
 	char ch;
 	FILE *fp;
-	FILE *fpt;
 	fp = fopen("alice.txt","r");
 	if( fp == NULL )
    	{
@@ -73,10 +103,8 @@ int main(){
     	exit(EXIT_FAILURE);
 	}
 
-	
 	int* str;
 	str = (int *) malloc(4*sizeof(int));
-	
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
 
@@ -91,20 +119,31 @@ int main(){
 		if(( ch = fgetc(fp) ) != EOF)
 		str[3]=ch;
 		else{str[3]=0;}
-	
+
+		//asscii to binary array
+		int* t = get_block(str);
+		/*int i;
+		
+		for(i=0;i<32;i++){
+			
+			printf("%d ",t[i]);
+		}
+		printf("\n");*/
+		int* perm = permutate(t,pseq1);
+		/*for(i=0;i<32;i++){
+
+			printf("%d ",perm[i]);
+		}
+		printf("\n");
+		printf("-------------------------------------------\n");*/
 	}
+}	
 
-	int i;
-	int * t = get_block(str);
-	for(i=0;i<32;i++){
-		printf("%d",t[i]);	}
 
-	printf("\n");
-
-	int * ta = get_numstr(t);
-	for(i=0;i<4;i++){
-		printf("%d ",ta[i]);}
-	printf("\n");
+int main(){
+	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
+	myencrypt(key);
+	
 }
 
 
