@@ -70,17 +70,17 @@ int* subencrypt(int* perm,int* key ){
 
 	int* shufflekey = permutate(t,pseq1);
 	int* tempkey = malloc(16*sizeof(int));
+	int* tempkey = malloc(16*sizeof(int));
 
 	int i;
 	for(i=0;i<16;i++){
-
 		left[i]=perm[i];
-		tempkey[i]= shufflekey[i];
-	}
-	for(i=0;i<16;i++){
 		right[i]=perm[i+16];
+		tempkey[i]= shufflekey[i];
 		finalsub[i]= perm[i+16];
 	}
+	
+
 
 }
 
