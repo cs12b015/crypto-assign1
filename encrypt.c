@@ -44,9 +44,28 @@ int* get_block(int* str){
 	return ret;
 }
 
+int * get_numstr(int* bin){
+	int* ret = malloc(4* sizeof(int));
+
+	int i,j,k,temp;
+
+	for(i=0;i<4;i++){
+		j = i*8;
+		temp =0;
+		for(k=0;k<8;k++){
+			temp +=bin[j+k];
+			temp = temp*2;	
+		}
+		ret[i]= temp;	
+	}
+	return ret;
+}
+
+
 int main(){
 	char ch;
 	FILE *fp;
+	FILE *fpt;
 	fp = fopen("alice.txt","r");
 	if( fp == NULL )
    	{
@@ -55,8 +74,9 @@ int main(){
 	}
 
 	
-		int* str;
-		str = (int *) malloc(4*sizeof(int));
+	int* str;
+	str = (int *) malloc(4*sizeof(int));
+	
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
 
@@ -71,20 +91,20 @@ int main(){
 		if(( ch = fgetc(fp) ) != EOF)
 		str[3]=ch;
 		else{str[3]=0;}
-
-		//printf("%s\n",str);
-		//int i;
-		//for( i=0;i<4;i++)
-       //  printf("%d ",str[i]);
-       // printf("\n");
+	
 	}
 
-	//fclose(fp);
 	int i;
 	int * t = get_block(str);
 	for(i=0;i<32;i++){
-		printf("%d",t[i]);
-	}
+		printf("%d",t[i]);	}
+
+	printf("\n");
+
+	int * ta = get_numstr(t);
+	for(i=0;i<4;i++){
+		printf("%d ",ta[i]);}
+	printf("\n");
 }
 
 
