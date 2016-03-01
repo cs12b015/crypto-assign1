@@ -4,9 +4,8 @@
 
 
 
-int* permutate(int* original, int* permseq){
-	int* duplicate;
-	duplicate = (int *) malloc(32);
+int* permutate(int* original, int permseq[]){
+	int* duplicate = malloc(32*sizeof(int));
 	int i;
 	for(i=0;i<32;i++){
 		duplicate[i]=original[permseq[i]];
@@ -14,9 +13,8 @@ int* permutate(int* original, int* permseq){
 	return duplicate;
 } 
 
-int* depermutate(int* duplicate,int* permseq){
-	int* original;
-	original=(int *) malloc (32);
+int* depermutate(int* duplicate,int permseq[]){
+	int* original= malloc(32*sizeof(int));
 	int i;
 	for(i=0;i<32;i++){
 		original[permseq[i]]=duplicate[i];
@@ -40,11 +38,27 @@ int* get_block(int* str){
  			c = c/2;
 		}
 	}
-
 	return ret;
 }
 
-int main(){
+int* subencrypt(int* permkey,int* key ){
+
+	
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+void myencrypt(int* key){
 	char ch;
 	FILE *fp;
 	fp = fopen("alice.txt","r");
@@ -53,10 +67,9 @@ int main(){
     	perror("Error while opening the file.\n");
     	exit(EXIT_FAILURE);
 	}
-
-	
-		int* str;
-		str = (int *) malloc(4*sizeof(int));
+	int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24,22,2,13,9,11,12,3,10};
+	int* str;
+	str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
 
@@ -72,19 +85,36 @@ int main(){
 		str[3]=ch;
 		else{str[3]=0;}
 
-		//printf("%s\n",str);
-		//int i;
-		//for( i=0;i<4;i++)
-       //  printf("%d ",str[i]);
-       // printf("\n");
-	}
+		//asscii to binary array
+		int* t = get_block(str);
+		int i;
+		for(i=0;i<32;i++){
+			printf("%d ",t[i]);
+		}
+		printf("\n");
 
-	//fclose(fp);
-	int i;
-	int * t = get_block(str);
-	for(i=0;i<32;i++){
-		printf("%d",t[i]);
+		int* perm = permutate(t,pseq1);
+
+
+
+
 	}
+}	
+
+
+int main(){
+
+	char* key = malloc(4*sizeof(char));
+	printf("Hey MAtey!! Enter ur 32-bit key ");
+	scanf("%s", key);
+	int* keynum = (int *) malloc(4*sizeof(int));
+	keynum[0]=key[0];
+	keynum[1]=key[1];
+	keynum[2]=key[2];
+	keynum[3]=key[3];
+	int* keyarray = get_block(keynum);
+	myencrypt(keyarray);
+	
 }
 
 
