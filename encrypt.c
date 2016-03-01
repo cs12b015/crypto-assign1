@@ -61,6 +61,20 @@ int * get_numstr(int* bin){
 	return ret;
 }
 
+int xor(int x, int y){
+	if(x==y)return 0;
+	else return 1;	
+}
+
+int* xor(int* a,int* b){
+	int* ret = malloc (16*sizeof(int));
+	int i;
+	for(i=0;t<16;i++){
+		ret[i]=xor(a[i],b[i]);
+	}
+	return ret;
+}
+
 
 
 int* subencrypt(int* perm,int* key ){
