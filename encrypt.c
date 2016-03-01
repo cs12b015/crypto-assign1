@@ -66,7 +66,7 @@ int xor(int x, int y){
 	else return 1;	
 }
 
-int* xor(int* a,int* b){
+int* xorarray(int* a,int* b){
 	int* ret = malloc (16*sizeof(int));
 	int i;
 	for(i=0;t<16;i++){
@@ -93,8 +93,14 @@ int* subencrypt(int* perm,int* key ){
 		tempkey[i]= shufflekey[i];
 		finalsub[i]= perm[i+16];
 	}
-	
+	int* xorrightkey= xorarray(right,tempkey);
+	int* substitute_temp = substitute(xorrightkey,sbox1);
+	int* secxor = xorarray(substitute_temp,left);
+	for(i=0;i<16;i++){
+		finalsub[i+16]=secxor[i];
+	}
 
+	return finalsub;
 
 }
 
