@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <malloc.h>
 
+int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24,22,2,13,9,11,12,3,10};
+
+int sbox1[16]= {5,8,3,6,14,2,13,10,12,7,15,0,4,11,19,1};
 
 
 int* permutate(int* original, int permseq[]){
@@ -41,9 +44,32 @@ int* get_block(int* str){
 	return ret;
 }
 
-int* subencrypt(int* permkey,int* key ){
 
-	
+int* subencrypt(int* perm,int* key ){
+	int* left = malloc(16*sizeof(int));
+	int* right = malloc(16*sizeof(int));
+	int* finalsub = malloc(32*sizeof(int));
+
+	int* shufflekey = permutate(t,pseq1);
+	int* tempkey = malloc(16*sizeof(int));
+
+	int i;
+	for(i=0;i<16;i++){
+
+		left[i]=perm[i];
+		tempkey[i]= shufflekey[i];
+	}
+	for(i=0;i<16;i++){
+		right[i]=perm[i+16];
+		finalsub[i]= perm[i+16];
+	}
+
+
+
+
+
+
+
 
 
 
@@ -67,7 +93,7 @@ void myencrypt(int* key){
     	perror("Error while opening the file.\n");
     	exit(EXIT_FAILURE);
 	}
-	int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24,22,2,13,9,11,12,3,10};
+
 	int* str;
 	str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
@@ -87,13 +113,20 @@ void myencrypt(int* key){
 
 		//asscii to binary array
 		int* t = get_block(str);
-		int i;
+		/*int i;
+		
 		for(i=0;i<32;i++){
+			
 			printf("%d ",t[i]);
 		}
-		printf("\n");
-
+		printf("\n");*/
 		int* perm = permutate(t,pseq1);
+		/*for(i=0;i<32;i++){
+
+			printf("%d ",perm[i]);
+		}
+		printf("\n");
+		printf("-------------------------------------------\n");*/
 
 
 
@@ -104,16 +137,8 @@ void myencrypt(int* key){
 
 int main(){
 
-	char* key = malloc(4*sizeof(char));
-	printf("Hey MAtey!! Enter ur 32-bit key ");
-	scanf("%s", key);
-	int* keynum = (int *) malloc(4*sizeof(int));
-	keynum[0]=key[0];
-	keynum[1]=key[1];
-	keynum[2]=key[2];
-	keynum[3]=key[3];
-	int* keyarray = get_block(keynum);
-	myencrypt(keyarray);
+	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
+	myencrypt(key);
 	
 }
 
