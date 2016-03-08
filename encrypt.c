@@ -173,39 +173,24 @@ void myencrypt(int* key){
 		str[3]=ch;
 		else{str[3]=0;}
 
+		int i;
+
 		//asscii to binary array
 		int* t = get_block(str);
-		int i;
-		
-		/*for(i=0;i<32;i++){
-			
-			printf("%d ",t[i]);
-		}
-		printf("\n");*/
-
-		int * taa = substitute(t,sbox1);
-
-		int i;
-		
-		for(i=0;i<32;i++){
-			
-			printf("%d ",taa[i]);
-		}
-		printf("\n");
-
 
 		int* perm = permutate(t,pseq1);
-		/*for(i=0;i<32;i++){
-
-			printf("%d ",perm[i]);
-		}
-		printf("\n");
-		printf("-------------------------------------------\n");*/
 		for(i=0;i<16;i++){
-			perm=subencrypt(int* perm,int* key );
+			perm=subencrypt(perm,key ,sbox1);
 		}
 		int* ddperm = permutate(perm,pseq1);
-		return ddperm;
+
+
+		
+		for(i=0;i<32;i++){
+			printf("%d ",ddperm[i]);
+		}
+		printf("\n");
+		
 	}
 }	
 
