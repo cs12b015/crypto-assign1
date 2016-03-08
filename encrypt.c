@@ -6,7 +6,6 @@ int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24
 
 int sbox1[16]= {5,8,3,6,14,2,13,10,12,7,15,0,4,11,19,1};
 
-
 int* permutate(int* original, int permseq[]){
 	int* duplicate = malloc(32*sizeof(int));
 	int i;
@@ -76,10 +75,10 @@ int* xorarray(int* a,int* b){
 
 int getnum4(int* bi){
 	int ret;
-	int i,j,k,temp;
+	int i,k,temp;
 	temp =0;
 	for(k=0;k<4;k++){
-		temp +=bi[j+k];
+		temp +=bi[k];
 		temp = temp*2;	
 	}
 	ret = temp;	
@@ -119,8 +118,6 @@ int* substitute(int* xorres, int* sbox1){
 	}
 	return ret;
 }
-
-
 
 int* subencrypt(int* perm,int* key, int* sbox1 ){
 	int* left = malloc(16*sizeof(int));
