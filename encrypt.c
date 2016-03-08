@@ -157,6 +157,7 @@ void myencrypt(int* key){
 	}
 
 	int* str;
+	int* t;
 	str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
@@ -174,7 +175,7 @@ void myencrypt(int* key){
 		else{str[3]=0;}
 
 		//asscii to binary array
-		int* t = get_block(str);
+		t = get_block(str);
 		/*int i;
 		
 		for(i=0;i<32;i++){
@@ -183,15 +184,7 @@ void myencrypt(int* key){
 		}
 		printf("\n");*/
 
-		int * taa = substitute(t,sbox1);
-
-		int i;
 		
-		for(i=0;i<32;i++){
-			
-			printf("%d ",taa[i]);
-		}
-		printf("\n");
 
 
 		int* perm = permutate(t,pseq1);
@@ -202,6 +195,19 @@ void myencrypt(int* key){
 		printf("\n");
 		printf("-------------------------------------------\n");*/
 	}
+	int * taa = substitute(t,sbox1);
+
+	int i;
+	
+	for(i=0;i<32;i++){
+		printf("%d ",t[i]);
+	}
+	printf("\n");
+
+	for(i=0;i<32;i++){
+		printf("%d ",taa[i]);
+	}
+	printf("\n");
 }	
 
 
