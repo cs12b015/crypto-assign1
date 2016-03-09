@@ -16,7 +16,6 @@ void myencrypt(int* key){
 	}
 
 	int* str;
-	int* t;
 	str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
@@ -36,35 +35,14 @@ void myencrypt(int* key){
 		int i;
 
 		//asscii to binary array
-<<<<<<< HEAD
-		t = get_block(str);
-		/*int i;
-		
-		for(i=0;i<32;i++){
-			
-			printf("%d ",t[i]);
-=======
 		int* t = get_block(str);
 
 		int* perm = permutate(t,pseq1);
 		for(i=0;i<16;i++){
 			perm=subencrypt(perm,key ,sbox1);
->>>>>>> 670e03429e66d72f493b2ce9a1230a8ea3c3ff70
 		}
 		int* ddperm = permutate(perm,pseq1);
 
-<<<<<<< HEAD
-		
-
-
-		int* perm = permutate(t,pseq1);
-		/*for(i=0;i<32;i++){
-
-			printf("%d ",perm[i]);
-		}
-		printf("\n");
-		printf("-------------------------------------------\n");*/
-=======
 
 		
 		/*for(i=0;i<32;i++){
@@ -86,21 +64,7 @@ void myencrypt(int* key){
 
 
 		
->>>>>>> 670e03429e66d72f493b2ce9a1230a8ea3c3ff70
 	}
-	int * taa = substitute(t,sbox1);
-
-	int i;
-	
-	for(i=0;i<32;i++){
-		printf("%d ",t[i]);
-	}
-	printf("\n");
-
-	for(i=0;i<32;i++){
-		printf("%d ",taa[i]);
-	}
-	printf("\n");
 }	
 
 
