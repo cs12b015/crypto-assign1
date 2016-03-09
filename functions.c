@@ -30,7 +30,7 @@ int* get_block(int* str){
 	for(i=0;i<4;i++){
 		c = str[i];
 		for(j=0;j<8;j++){
-			ret[(i+1)*8-j] = c%2;
+			ret[(i+1)*8-j-1] = c%2;
  			c = c/2;
 		}
 	}
@@ -38,16 +38,18 @@ int* get_block(int* str){
 }
 
 
+
 int* get_numstr(int* bin){
 	int* ret = malloc(4* sizeof(int));
-	int i,j,k,temp,poww;
+	int i,j,j2,k,temp,poww;
 	for(i=0;i<4;i++){
 		j = i*8;
-		poww =1;
+		poww =128;
 		temp=0;
+		
 		for(k=0;k<8;k++){
 			temp +=bin[j+k]*poww;
-			poww = poww*2;	
+			poww = poww/2;	
 		}
 		ret[i]= temp;	
 	}
