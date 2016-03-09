@@ -18,32 +18,42 @@ void mydecrypt(int* key){
 	str = (int *) malloc(4*sizeof(int));
 	while( ( ch = fgetc(fp) ) != EOF ){
 		str[0]=ch;
+		if(str[0]<0){
+			str[0]=str[0]+256;
+		}
 
-		if(( ch = fgetc(fp) ) != EOF)
-		str[1]=ch;
+		if(( ch = fgetc(fp) ) != EOF){
+			str[1]=ch;
+			if(str[1]<0){
+				str[1]=str[1]+256;
+			}
+		}
 		else{str[1]=0;}
 
-		if(( ch = fgetc(fp) ) != EOF)
-		str[2]=ch;
+		if(( ch = fgetc(fp) ) != EOF){
+			str[2]=ch;
+			if(str[2]<0){
+				str[2]=str[2]+256;
+			}
+		}
 		else{str[2]=0;}
 
-		if(( ch = fgetc(fp) ) != EOF)
-		str[3]=ch;
+		if(( ch = fgetc(fp) ) != EOF){
+			str[3]=ch;
+			if(str[3]<0){
+				str[3]=str[3]+256;
+			}
+		}
 		else{str[3]=0;}
 
 		int i;
-		for(i=0;i<4;i++){
-			int cc = str[i];
-			printf("%d ",cc);
-		}
-		printf("\n" );
 
-		/*int* t = get_block(str);
+		int* t = get_block(str);
 
 		for(i=0;i<32;i++){
 			printf("%d ",str[i] );
 		}
-		printf("\n" );*/
+		printf("\n" );
 	}
 }
 

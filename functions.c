@@ -40,16 +40,15 @@ int* get_block(int* str){
 
 int* get_numstr(int* bin){
 	int* ret = malloc(4* sizeof(int));
-	int i,j,k,temp;
-
+	int i,j,k,temp,poww;
 	for(i=0;i<4;i++){
 		j = i*8;
-		temp =0;
+		poww =1;
+		temp=0;
 		for(k=0;k<8;k++){
-			temp +=bin[j+k];
-			temp = temp*2;	
+			temp +=bin[j+k]*poww;
+			poww = poww*2;	
 		}
-		printf("          %d\n",temp );
 		ret[i]= temp;	
 	}
 	return ret;
