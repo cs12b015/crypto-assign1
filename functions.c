@@ -72,12 +72,12 @@ int* xorarray(int* a,int* b){
 
 
 int getnum4(int* bi){
-	int ret;
-	int i,k,temp;
+	int i,k,temp,ret,poww;
 	temp =0;
+	poww = 8;	
 	for(k=0;k<4;k++){
-		temp +=bi[k];
-		temp = temp*2;	
+		temp +=bi[k]*poww;
+		poww = poww/2;	
 	}
 	ret = temp;	
 	return ret;
@@ -88,7 +88,7 @@ int* getbin4(int num){
 	int j;
 	int c = num;
 	for(j=0;j<4;j++){
-		ret[4-j] = c%2;
+		ret[4-j-1] = c%2;
  		c = c/2;
 	}
 	return ret;
