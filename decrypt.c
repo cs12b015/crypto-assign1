@@ -4,11 +4,10 @@
 #include "functions.c"
 
 
-
-void myencrypt(int* key){
+void mydecrypt(int* key){
 	char ch;
 	FILE *fp;
-	fp = fopen("alice.txt","r");
+	fp = fopen("cipher.txt","r");
 	if( fp == NULL )
    	{
     	perror("Error while opening the file.\n");
@@ -33,47 +32,26 @@ void myencrypt(int* key){
 		else{str[3]=0;}
 
 		int i;
-
-		//asscii to binary array
-		int* t = get_block(str);
-
-		int* perm = permutate(t,pseq1);
-		for(i=0;i<16;i++){
-			perm=subencrypt(perm,key ,sbox1);
-		}
-		int* ddperm = permutate(perm,pseq1);
-
-
-		
-		/*for(i=0;i<32;i++){
-			printf("%d ",ddperm[i]);
-		}
-		printf("\n");*/
-
-
-		int* numstrinng = get_numstr(ddperm);
-
-
-		char tem;
 		for(i=0;i<4;i++){
-			//tem=numstrinng[i];
-			char cc=numstrinng[i];
-			printf("%c",cc);
+			int cc = str[i];
+			printf("%d ",cc);
 		}
-		/*printf("\n");*/
+		printf("\n" );
 
+		/*int* t = get_block(str);
 
-		
+		for(i=0;i<32;i++){
+			printf("%d ",str[i] );
+		}
+		printf("\n" );*/
 	}
-}	
-
-
-int main(){
-	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
-	myencrypt(key);
-	
 }
 
 
 
 
+
+int main(){
+	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
+	mydecrypt(key);
+}
