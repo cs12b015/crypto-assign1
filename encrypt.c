@@ -53,14 +53,16 @@ void myencrypt(int* key){
 
 		int* numstrinng = get_numstr(ddperm);
 
-
-		char tem;
-		for(i=0;i<4;i++){
-			//tem=numstrinng[i];
-			char cc=numstrinng[i];
-			printf("%d ",numstrinng[i]);
+		for(i=0;i<32;i++){
+			printf("%d ",ddperm[i]);
 		}
 		printf("\n");
+
+		for(i=0;i<4;i++){
+			char cc=numstrinng[i];
+			//printf("%c ",cc);
+		}
+		//printf("\n");
 
 
 		
@@ -70,7 +72,27 @@ void myencrypt(int* key){
 
 int main(){
 	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
-	myencrypt(key);
+
+	int i;
+
+	for(i=0;i<32;i++){
+		printf("%d ",key[i]);
+	}
+	printf("\n");
+
+	int* numstrinng = get_numstr(key);
+	for(i=0;i<4;i++){
+		printf("%d ",numstrinng[i]);
+	}
+	printf("\n");
+
+	int* binstring = get_block(numstrinng);
+	for(i=0;i<32;i++){
+		printf("%d ",binstring[i]);
+	}
+	printf("\n");
+
+	//myencrypt(key);
 	
 }
 

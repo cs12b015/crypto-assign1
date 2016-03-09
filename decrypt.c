@@ -45,13 +45,11 @@ void mydecrypt(int* key){
 			}
 		}
 		else{str[3]=0;}
-
 		int i;
 
 		int* t = get_block(str);
-
 		for(i=0;i<32;i++){
-			printf("%d ",str[i] );
+			printf("%d ",t[i] );
 		}
 		printf("\n" );
 	}
