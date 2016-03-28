@@ -134,9 +134,40 @@ int* subencrypt(int* perm,int* key, int* sbox1 ){
 	}
 	int* xorrightkey= xorarray(right,tempkey);
 	int* substitute_temp = substitute(xorrightkey,sbox1);
+	//int* substitute_temp = xorrightkey;
 	int* secxor = xorarray(substitute_temp,left);
 	for(i=0;i<16;i++){
 		finalsub[i+16]=secxor[i];
+	}
+
+	return finalsub;
+
+}
+
+
+int* subdecrypt(int* perm,int* key, int* sbox1 ){
+
+	int* left = malloc(16*sizeof(int));
+	int* right = malloc(16*sizeof(int));
+	int* finalsub = malloc(32*sizeof(int));
+
+	int* shufflekey = permutate(key,pseq1);
+	int* tempkey = malloc(16*sizeof(int));
+	
+	int i;
+	for(i=0;i<16;i++){
+		left[i]=perm[i];
+		right[i]=perm[i+16];
+		tempkey[i]= shufflekey[i];
+		finalsub[i+16]= perm[i]; // r i-e = l i
+	}
+
+	int* xorrightkey= xorarray(left,tempkey);
+	int* substitute_temp = substitute(xorrightkey,sbox1);
+	//int* substitute_temp = xorrightkey;
+	int* secxor = xorarray(substitute_temp,right);
+	for(i=0;i<16;i++){
+		finalsub[i]=secxor[i];  // l 1 - 1 = right[i] + f(left[i],key)
 	}
 
 	return finalsub;
