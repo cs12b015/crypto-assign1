@@ -47,11 +47,30 @@ void mydecrypt(int* key){
 		else{str[3]=0;}
 		int i;
 
+
 		int* t = get_block(str);
-		for(i=0;i<32;i++){
-			printf("%d ",t[i] );
+		
+		int* deperm1 = depermutate(t,pseq1);
+
+
+		for(i=0;i<16;i++){
+			deperm1=subdecrypt(deperm1,key ,sbox1);
 		}
-		printf("\n" );
+
+		int* deperm2 = depermutate(deperm1,pseq1);
+
+		/*for(i=0;i<32;i++){
+			printf("%d ",deperm2[i] );
+		}
+		printf("\n" );*/
+
+		int* numstrinng = get_numstr(ddperm2);
+
+
+		for(i=0;i<4;i++){
+			char cc=numstrinng[i];
+			printf("%c",cc);
+		}
 	}
 }
 
