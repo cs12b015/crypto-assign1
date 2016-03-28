@@ -41,23 +41,23 @@ void myencrypt(int* key){
 		for(i=0;i<16;i++){
 			perm=subencrypt(perm,key ,sbox1);
 		}
-		int* ddperm = permutate(perm,pseq1);
 
-
-		
-		/*for(i=0;i<32;i++){
-			printf("%d ",ddperm[i]);
+	/*	for(i=0;i<32;i++){
+			printf("%d ",perm[i]);
 		}
 		printf("\n");*/
 
 
+		int* ddperm = permutate(perm,pseq1);
+
 		int* numstrinng = get_numstr(ddperm);
+
 
 		for(i=0;i<4;i++){
 			char cc=numstrinng[i];
-			printf("%d ",cc);
+			printf("%c",cc);
 		}
-		printf("\n");
+		
 
 	}
 }	
@@ -65,9 +65,6 @@ void myencrypt(int* key){
 
 int main(){
 	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
-
-	
-
 	myencrypt(key);
 	
 }
