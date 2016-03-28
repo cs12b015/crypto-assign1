@@ -34,23 +34,53 @@ void myencrypt(int* key){
 
 		int i;
 
+		printf("numstring\n");
+		for(i=0;i<4;i++){
+			printf("%d ",str[i]);
+		}
+		printf("\n");
+		printf("\n");
+
+
+
 		//asscii to binary array
 		int* t = get_block(str);
+
+		printf("binarray\n");
+		for(i=0;i<32;i++){
+			printf("%d ",t[i]);
+		}
+		printf("\n");
+		printf("\n");
+
+
 
 		int* perm = permutate(t,pseq1);
 		for(i=0;i<16;i++){
 			perm=subencrypt(perm,key ,sbox1);
 		}
-
-	/*	for(i=0;i<32;i++){
-			printf("%d ",perm[i]);
-		}
-		printf("\n");*/
-
-
 		int* ddperm = permutate(perm,pseq1);
 
+
+		printf("afters sbox\n");
+		for(i=0;i<32;i++){
+			printf("%d ",ddperm[i]);
+		}
+		printf("\n");
+		printf("\n");
+
+
+
 		int* numstrinng = get_numstr(ddperm);
+
+
+		printf("numSTRING \n");
+		for(i=0;i<4;i++){
+			printf("%d ",numstrinng[i]);
+		}
+		printf("\n");
+		printf("\n");
+
 
 
 		for(i=0;i<4;i++){
