@@ -55,12 +55,10 @@ void myencrypt(int* key){
 
 		for(i=0;i<4;i++){
 			char cc=numstrinng[i];
-			printf("%c ",cc);
+			printf("%d ",cc);
 		}
-		//printf("\n");
+		printf("\n");
 
-
-		
 	}
 }	
 
