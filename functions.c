@@ -171,5 +171,6 @@ int* subdecrypt(int* perm,int* key, int* sbox1 ){
 	}
 
 	return finalsub;
+	
 
 }
