@@ -6,6 +6,7 @@
 
 
 void myencrypt(int* key){
+	int count=0;
 	char ch;
 	FILE *fp;
 	fp = fopen("alice.txt","r");
@@ -34,67 +35,80 @@ void myencrypt(int* key){
 
 		int i;
 
-		printf("numstring\n");
+/*		printf("numstring\n");
 		for(i=0;i<4;i++){
 			printf("%d ",str[i]);
 		}
 		printf("\n");
 		printf("\n");
-
+*/
 
 
 		//asscii to binary array
 		int* t = get_block(str);
-
+/*
 		printf("binarray\n");
 		for(i=0;i<32;i++){
 			printf("%d ",t[i]);
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n");*/
 
 
 
 		int* perm = permutate(t,pseq1);
+
+
 		for(i=0;i<16;i++){
 			perm=subencrypt(perm,key ,sbox1);
 		}
+
+		int* DUUUP = get_numstr(perm);
+		
+
 		int* ddperm = permutate(perm,pseq1);
 
 
-		printf("afters sbox\n");
+	/*	printf("afters sbox\n");
 		for(i=0;i<32;i++){
 			printf("%d ",ddperm[i]);
 		}
 		printf("\n");
 		printf("\n");
-
+*/
 
 
 		int* numstrinng = get_numstr(ddperm);
+		/*for(i=0;i<4;i++){
+			printf("%d ",numstrinng[i]);
+		}
+		printf("\n");
+		printf("\n");*/
 
-
+/*
 		printf("numSTRING \n");
 		for(i=0;i<4;i++){
 			printf("%d ",numstrinng[i]);
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n");*/
 
 
-
+		
 		for(i=0;i<4;i++){
 			char cc=numstrinng[i];
 			printf("%c",cc);
+			//count++;
 		}
 		
 
 	}
+	// printf("%d\n",count);
 }	
 
 
 int main(){
-	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
+	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,1,0,1,1};
 	myencrypt(key);
 	
 }

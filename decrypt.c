@@ -32,7 +32,6 @@ void mydecrypt(int* key){
 
 		if(( ch = fgetc(fp) ) != EOF){
 			str[2]=ch;
-			printf("%d",str[2]);
 
 			if(str[2]<0){
 				str[2]=str[2]+256;
@@ -49,23 +48,23 @@ void mydecrypt(int* key){
 		else{str[3]=0;}
 		int i;
 
-		printf("numbSTRING\n");
+		/*printf("numbSTRING\n");
 		for(i=0;i<4;i++){
 			printf("%d ",str[i]);
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n");*/
 
 
 
 		int* t = get_block(str);
 
-		printf("afters sbox\n");
+	/*	printf("afters sbox\n");
 		for(i=0;i<32;i++){
 			printf("%d ",t[i]);
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n");*/
 
 
 		
@@ -77,22 +76,22 @@ void mydecrypt(int* key){
 		int* deperm2 = depermutate(deperm1,pseq1);
 
 
-		printf("binarray\n");
+		/*printf("binarray\n");
 		for(i=0;i<32;i++){
 			printf("%d ",deperm2[i] );
 		}
 		printf("\n" );
 		printf("\n" );
-
+*/
 
 		int* numstrinng = get_numstr(deperm2);
-
+/*
 		printf("numstring\n");
 		for(i=0;i<4;i++){
 			printf("%d ",numstrinng[i]);
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n");*/
 
 
 		for(i=0;i<4;i++){
@@ -107,6 +106,6 @@ void mydecrypt(int* key){
 
 
 int main(){
-	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,1};
+	int key[32]={0,1,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,1,0,1,1};
 	mydecrypt(key);
 }

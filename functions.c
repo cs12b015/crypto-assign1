@@ -1,6 +1,7 @@
-int pseq1[32]= {17,6,18,16,4,21,15,25,20,30,14,5,31,7,1,23,26,19,28,27,0,8,29,24,22,2,13,9,11,12,3,10};
+int pseq1[32]= {0,6,18,26,4,21,15,25,8,30,14,5,31,7,1,23,16,19,28,27,17,20,29,22,24,2,13,9,11,12,3,10};
 
-int sbox1[16]= {5,8,3,6,14,2,13,10,12,7,15,0,4,11,19,1};
+int sbox1[16]= {0,12,3,6,14,2,13,10,8,7,15,5,4,11,19,1};
+int minibox1[8]={7,5,3,6,2,1,4,0};
 
 int* permutate(int* original, int permseq[]){
 	int* duplicate = malloc(32*sizeof(int));
@@ -97,24 +98,53 @@ int* getbin4(int num){
 
 int* substitute(int* xorres, int* sbox1){
 
-	int i,j,tno;
+	int i,j,tno,k;
 	int* te4 = malloc(4*sizeof(int));
 	int* ret = malloc(16*sizeof(int));
 	int* te4a = malloc(4*sizeof(int));
 	for(i =0;i<4;i++){
 		j = 4*i;
-		te4[0]= xorres[j+0];
-		te4[1]= xorres[j+3];
-		te4[2]= xorres[j+1];
-		te4[3]= xorres[j+2];
-		tno = getnum4(te4);
-		te4a = getbin4(sbox1[tno]);
-		ret[j+0]=te4a[0];
-		ret[j+1]=te4a[1];
-		ret[j+2]=te4a[2];
-		ret[j+3]=te4a[3];
+		if(j%8==0){
+			te4[0]= xorres[j+0];
+			te4[1]= xorres[j+3];
+			te4[2]= xorres[j+1];
+			te4[3]= xorres[j+2];
+			tno = getnum4(te4);
+			te4a = getbin4(minibox1[tno]);
+			ret[j+0]=te4a[0];
+			ret[j+1]=te4a[1];
+			ret[j+2]=te4a[2];
+			ret[j+3]=te4a[3];
+/*			printf("yesss %d\n",tno);
+*/
+		}
+		else{
+			te4[0]= xorres[j+0];
+			te4[1]= xorres[j+3];
+			te4[2]= xorres[j+1];
+			te4[3]= xorres[j+2];
+			tno = getnum4(te4);
+			te4a = getbin4(sbox1[tno]);
+			ret[j+0]=te4a[0];
+			ret[j+1]=te4a[1];
+			ret[j+2]=te4a[2];
+			ret[j+3]=te4a[3];
+/*			printf("nooooope %d\n",tno);
+*/		}
+
+		
+
 	}
+		/*printf("\n");
+		for(k=0;k<16;k++)
+		{
+			printf("%d ", ret[k]);
+		}
+		printf("\n");*/
+
 	return ret;
+
+
 }
 
 int* subencrypt(int* perm,int* key, int* sbox1 ){
@@ -132,7 +162,8 @@ int* subencrypt(int* perm,int* key, int* sbox1 ){
 		tempkey[i]= shufflekey[i];
 		finalsub[i]= perm[i+16];
 	}
-	int* xorrightkey= xorarray(right,tempkey);
+	int* xorrightkey= xorarray(right,tempkey);		
+
 	int* substitute_temp = substitute(xorrightkey,sbox1);
 	//int* substitute_temp = xorrightkey;
 	int* secxor = xorarray(substitute_temp,left);
